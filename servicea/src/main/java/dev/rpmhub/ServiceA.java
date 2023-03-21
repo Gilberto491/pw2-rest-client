@@ -15,6 +15,10 @@
  */
 package dev.rpmhub;
 
+import dev.rpmhub.cliente.ServiceRemote;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -27,14 +31,15 @@ public class ServiceA {
     // TODO
     // Por meio de injeção de dependência,
     // instancie o Rest Cliente para o serviço B
+    @Inject
+    @RestClient
+    ServiceRemote remote;
 
     @GET
     @Path("/person/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Person getPerson(@PathParam("name") String name){
-        // TODO
-        // Complete o método
-        return null;
+        return remote.getPerson(name);
     }
 
 }
